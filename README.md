@@ -51,16 +51,19 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
 
 3. Submit transaction
 ```typescript
+  import { BigNumber } from "ethers"; 
+  import { Interface } from "ethers/lib/utils";
+
   // Generate the function data
   const contractInterface = new Interface(contractABI);
   const data = contractInterface.encodeFunctionData("functionToCall", [args]);
 
   const relayTx = await RelaySDK.sendRelayTransaction(
     chainId,
-    destAddress,
+    destAddress, // The contract address that should be whitelisted in the Relay
     data,
-    daiPolygonAddress,
-    estimatedDaiFee.toHexString()
+    paymentTokenAddress,
+    estimatedExecutionFeeInToken.toHexString() // Not used yet
   );
   console.log(`RelayerTransactionId = ${relayTx.taskId}`);
 ```
