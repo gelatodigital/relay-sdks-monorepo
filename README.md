@@ -11,7 +11,6 @@ or
 ```bash
 npm install @gelatonetwork/relay-sdk
 ```
-
 ## Getting Started
 
 Import the Gelato Multichain Relay into your project
@@ -66,4 +65,20 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
     estimatedExecutionFeeInToken.toHexString() // Not used yet
   );
   console.log(`RelayerTransactionId = ${relayTx.taskId}`);
+```
+## Supported Chains
+These are the chain Ids supported by the Gelato Multichain Relay:
+```typescript
+MAINNET: 1,
+ROPSTEN: 3,
+RINKEBY: 4,
+GOERLI: 5,
+OPTIMISM: 10,
+BSC: 56,
+XDAI: 100,
+MATIC: 137,
+FANTOM: 250,
+MOONBEAM: 1284,
+ARBITRUM: 42161,
+AVALANCHE: 43114
 ```
