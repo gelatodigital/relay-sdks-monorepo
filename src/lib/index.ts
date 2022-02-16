@@ -95,9 +95,24 @@ const getGelatoOracles = async (): Promise<string[]> => {
   return result;
 };
 
+const getPaymentTokens = async (chainId: number): Promise<string[]> => {
+  let result = [];
+  try {
+    const res = await axios.get(
+      `${RELAY_URL}/oracles/${chainId}/paymentTokens/`
+    );
+    result = res.data.paymentTokens;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return result;
+};
+
 export {
   isChainSupported,
   sendRelayTransaction,
   isOracleActive,
   getEstimatedFee,
+  getPaymentTokens,
 };
