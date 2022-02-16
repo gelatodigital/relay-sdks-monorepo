@@ -48,7 +48,15 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
   );
 ```
 
-3. Submit transaction
+3. Get supported payment tokens by chain id
+```typescript
+  // Get Payment Token Addresses
+  const paymentTokensAdresses: string[] = await RelaySDK.getPaymentTokens(
+    chainId,
+  );
+```
+
+4. Submit transaction
 ```typescript
   import { BigNumber } from "ethers"; 
   import { Interface } from "ethers/lib/utils";
