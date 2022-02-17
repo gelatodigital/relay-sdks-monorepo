@@ -56,7 +56,9 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
   );
 ```
 
-4. Submit transaction
+4. Submit transaction:
+If you want to submit a transaction using the Gelato Multichain Relayer, the transaction should pay to the Gelato contract
+to execute, otherwise the transaction will revert.
 ```typescript
   import { BigNumber } from "ethers"; 
   import { Interface } from "ethers/lib/utils";
@@ -67,10 +69,9 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
 
   const relayTx = await RelaySDK.sendRelayTransaction(
     chainId,
-    destAddress, // The contract address that should be whitelisted in the Relay
+    destAddress,
     data,
     paymentTokenAddress,
-    estimatedExecutionFeeInToken.toHexString() // Not used yet
   );
   console.log(`RelayerTransactionId = ${relayTx.taskId}`);
 ```
