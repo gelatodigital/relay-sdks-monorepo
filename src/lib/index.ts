@@ -1,7 +1,8 @@
 import RelayTransaction from "../types/RelayTransaction.interface";
 import axios from "axios";
 import { BigNumber } from "ethers";
-import RELAY_URL from "../utils/constants";
+import constants from "../utils/constants";
+const { RELAY_URL } = constants;
 
 const sendRelayTransaction = async (
   chainId: number,
