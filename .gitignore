@@ -1,37 +1,12 @@
-# Dependency directory
-node_modules
+# Dependencies
+node_modules/
+# Builds
+dist/
 
-# local env variables
-.env
-.env.testing
+# bundle analyzer
+stats.html
 
-# hardhat
-artifacts
-cache
-deployments/localhost
-
-# cache
 .eslintcache
 
-# VS Code
-.vscode
-
-# macOS
-.DS_Store
-*.icloud
-
-dist
-.idea
-
-# redis
-dump.rdb
-
-# coverage
-coverage
-.nyc_output
-
-# typechain
-typechain
-
-test/contracts/types
-src/logs/
+# yarn
+yarn-error.log
