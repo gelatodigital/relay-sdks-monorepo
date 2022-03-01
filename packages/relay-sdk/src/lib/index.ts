@@ -18,8 +18,11 @@ const sendRelayTransaction = async (
     const res = await axios.post(`${RELAY_URL}/relays/${chainId}`, params);
     output = res.data;
   } catch (error) {
-    console.error(error);
-    output = error;
+    let message = `RelaySdkError: ${(error as Error).message} `;
+    if (axios.isAxiosError(error)) {
+      message += error.response?.data?.message;
+    }
+    throw new Error(message);
   }
   return output;
 };
@@ -34,9 +37,7 @@ const getGelatoRelayChains = async (): Promise<string[]> => {
   try {
     const res = await axios.get(`${RELAY_URL}/relays/`);
     result = res.data.relays;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {} // eslint-disable-line no-empty
 
   return result;
 };
@@ -70,9 +71,9 @@ const _getEstimatedFee = async (
     });
     result = BigNumber.from(res.data.estimatedFee);
   } catch (error) {
-    let message: string = (error as Error).message;
-    if (axios.isAxiosError(error) && error.response) {
-      message = error.response?.data;
+    let message = `RelaySdkError: ${(error as Error).message} `;
+    if (axios.isAxiosError(error)) {
+      message += error.response?.data?.message;
     }
     throw new Error(message);
   }
@@ -89,9 +90,7 @@ const getGelatoOracles = async (): Promise<string[]> => {
   try {
     const res = await axios.get(`${RELAY_URL}/oracles/`);
     result = res.data.oracles;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {} // eslint-disable-line no-empty
 
   return result;
 };
@@ -103,9 +102,7 @@ const getPaymentTokens = async (chainId: number): Promise<string[]> => {
       `${RELAY_URL}/oracles/${chainId}/paymentTokens/`
     );
     result = res.data.paymentTokens;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {} // eslint-disable-line no-empty
 
   return result;
 };
