@@ -3,7 +3,7 @@
   "description": "Gelato Multichain Relay SDKs library",
   "main": "index.js",
   "author": "Gelato Network",
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "husky": "7.0.4",
