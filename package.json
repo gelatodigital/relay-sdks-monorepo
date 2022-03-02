@@ -1,54 +1,23 @@
 {
-  "name": "@gelatonetwork/relay-sdk",
-  "version": "0.0.7",
-  "description": "SDK to integrate the Gelato Multichain Relay",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
+  "name": "relay-sdks-monorepo",
+  "description": "Gelato Multichain Relay SDKs library",
+  "main": "index.js",
+  "author": "Gelato Network",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "husky": "7.0.4",
+    "lerna": "4.0.0"
+  },
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && npx tsc",
-    "format": "prettier --write '*/**/*.{js,json,md,ts}'",
-    "format:check": "prettier --check '*/**/*.{js,json,md,ts}'",
-    "lint": "eslint --cache .",
-    "prepare": "yarn build && yarn format && yarn lint",
-    "test": "ts-mocha --check-leaks --exit --timeout 60000 'test/**/*.spec.ts'"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@tsconfig/recommended": "^1.0.1",
-    "@types/chai": "^4.2.21",
-    "@types/chai-as-promised": "^7.1.4",
-    "@types/chai-subset": "^1.3.3",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.12",
-    "@types/sinon": "^10.0.2",
-    "@types/sinon-chai": "^3.2.5",
-    "@typescript-eslint/eslint-plugin": "^5.6.0",
-    "@typescript-eslint/parser": "^5.6.0",
-    "eslint": "^8.4.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.2",
-    "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
-    "ts-generator": "^0.1.1",
-    "ts-mocha": "^9.0.2",
-    "typescript": "^4.5.3"
-  },
-  "dependencies": {
-    "axios": "^0.24.0",
-    "chai": "^4.3.6",
-    "chai-arrays": "^2.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-bignumber": "^3.0.0",
-    "chai-subset": "^1.6.0",
-    "ethers": "^5.5.2",
-    "mocha": "^9.2.0",
-    "sinon": "^13.0.1",
-    "sinon-chai": "^3.7.0"
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean --yes && lerna exec -- rimraf yarn.lock dist/ .rts2_cache_{cjs,esm}/",
+    "build": "lerna run build",
+    "lint": "lerna run lint --parallel",
+    "test": "lerna run test --parallel",
+    "prepare": "husky install"
   }
 }
