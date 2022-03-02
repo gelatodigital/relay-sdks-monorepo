@@ -1,6 +1,15 @@
-# Gelato Multichain Relay SDK
+# Gelato Multichain Relay SDK <!-- omit in toc -->
 
 SDK to integrate into Gelato Multichain Relay.
+<br/>
+
+## Table of Contents <!-- omit in toc -->
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Examples](#examples)
+- [Supported Chains](#supported-chains)
+- [Gelato Contract Addresses](#gelato-contract-addresses)
+- [RelayTransit Contract Addresses](#relaytransit-contract-addresses)
 
 ## Installation
 
@@ -75,6 +84,12 @@ to execute, otherwise the transaction will revert.
   );
   console.log(`RelayerTransactionId = ${relayTx.taskId}`);
 ```
+
+## Examples
+
+Check out our tutorial repository [relay-sdk-hello-world](https://github.com/gelatodigital/relay-sdk-hello-world) for more in-depth examples.
+<br/><br/>
+
 ## Supported Chains
 These are the chain Ids supported by the Gelato Multichain Relay:
 ```typescript
