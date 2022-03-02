@@ -10,3 +10,6 @@ stats.html
 
 # yarn
 yarn-error.log
+
+# npm 
+.npmrc
