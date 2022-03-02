@@ -9,9 +9,9 @@ const sendRelayTransaction = async (
   dest: string,
   data: string,
   token: string,
-  relayerFee: string
+  relayerFee: BigNumber
 ): Promise<RelayTransaction> => {
-  const params = { dest, data, token, relayerFee };
+  const params = { dest, data, token, relayerFee: relayerFee.toString() };
 
   let output;
   try {
@@ -45,13 +45,13 @@ const getGelatoRelayChains = async (): Promise<string[]> => {
 const getEstimatedFee = async (
   chainId: number,
   paymentToken: string,
-  gasLimit: number,
+  gasLimit: BigNumber,
   isHighPriority: boolean
 ): Promise<BigNumber> => {
   const result = await _getEstimatedFee(
     chainId,
     paymentToken,
-    gasLimit,
+    gasLimit.toString(),
     isHighPriority
   );
   return result;
@@ -60,7 +60,7 @@ const getEstimatedFee = async (
 const _getEstimatedFee = async (
   chainId: number,
   paymentToken: string,
-  gasLimit: number,
+  gasLimit: string,
   isHighPriority: boolean
 ): Promise<BigNumber> => {
   const params = { paymentToken, gasLimit, isHighPriority };
