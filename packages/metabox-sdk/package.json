@@ -17,6 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "private": true,
   "devDependencies": {
     "@tsconfig/recommended": "1.0.1",
     "@types/node": "16.11.12",
