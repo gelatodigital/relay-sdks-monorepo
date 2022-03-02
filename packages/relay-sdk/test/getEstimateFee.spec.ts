@@ -12,7 +12,7 @@ const mockGetEstimatedFee = {
 
 const chainId = 1;
 const paymentToken: string = constants.ZERO_ADDRESS;
-const gasLimit = 25;
+const gasLimit = BigNumber.from(25);
 const isHighPriority = true;
 
 describe("getEstimatedFee", () => {
