@@ -24,7 +24,7 @@ yarn workspace @gelatonetwork/relay-sdk build
 
 ### Publish
 - Make sure to have your npm auth token in a `.npmrc` file
-- Run `publish:next` command:
+- Run `publish:latest` command:
 ```shell
-yarn publish:next
+yarn publish:latest
 ```

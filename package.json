@@ -19,6 +19,6 @@
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
     "prepare": "husky install",
-    "publish:next": "lerna publish --dist-tag next"
+    "publish:latest": "lerna publish --dist-tag latest"
   }
 }
