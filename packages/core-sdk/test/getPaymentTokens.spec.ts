@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SinonStub, stub } from "sinon";
 import { expect } from "./utils/expect";
-import { RelaySDK } from "../src";
+import { Oracle } from "../src";
 
 let axiosGetStub: SinonStub;
 const paymentTokens = [
@@ -22,7 +22,7 @@ describe("getPaymentTokens", () => {
   });
 
   it("should work if a chain is supported by gelato", async () => {
-    expect(await RelaySDK.getPaymentTokens(chainId)).to.be.containingAllOf(
+    expect(await Oracle.getPaymentTokens(chainId)).to.be.containingAllOf(
       paymentTokens
     );
   });

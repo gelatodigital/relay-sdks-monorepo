@@ -1,8 +1,7 @@
 import RelayTransaction from "../types/RelayTransaction.interface";
 import axios from "axios";
 import { BigNumber } from "ethers";
-import constants from "../utils/constants";
-const { RELAY_URL } = constants;
+import { RELAY_URL } from "@gelatonetwork/core-sdk";
 
 const sendRelayTransaction = async (
   chainId: number,

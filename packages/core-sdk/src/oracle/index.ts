@@ -1,8 +1,6 @@
 import axios from "axios";
 import { BigNumber } from "ethers";
-import constants from "../utils/constants";
-
-const { RELAY_URL } = constants;
+import { RELAY_URL } from "../utils/constants";
 
 const getEstimatedFee = async (
   chainId: number,
@@ -33,7 +31,7 @@ const _getEstimatedFee = async (
     });
     result = BigNumber.from(res.data.estimatedFee);
   } catch (error) {
-    let message = `RelaySdkError: ${(error as Error).message} `;
+    let message = `CoreSdkError: ${(error as Error).message} `;
     if (axios.isAxiosError(error)) {
       message += error.response?.data?.message;
     }
