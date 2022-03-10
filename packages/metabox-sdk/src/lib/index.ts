@@ -120,6 +120,30 @@ const getFeeTokens = async (chainId: number): Promise<string[]> => {
   }
 };
 
+const metaBoxRequest = (
+  chainId: number,
+  target: string,
+  data: BytesLike,
+  feeToken: string,
+  user: string,
+  nonce: number,
+  isEIP2771: boolean,
+  sponsor?: string,
+  deadline?: number
+): Request => {
+  return {
+    chainId,
+    target,
+    data,
+    feeToken,
+    user,
+    sponsor: sponsor ?? user,
+    nonce,
+    deadline: deadline ?? 0,
+    isEIP2771,
+  };
+};
+
 const getDigestToSign = (request: Request): string => {
   const domainSeparator = getEIP712DomainSeparator(request.chainId);
 
@@ -177,6 +201,7 @@ export {
   isFeeOracleActive,
   getEstimatedFee,
   getFeeTokens,
+  metaBoxRequest,
   getDigestToSign,
   getWalletPayloadToSign,
 };
