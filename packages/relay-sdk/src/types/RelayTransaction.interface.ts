@@ -1,5 +1,3 @@
-interface RelayTransaction {
+export interface RelayTransaction {
   taskId: string;
 }
-
-export default RelayTransaction;
