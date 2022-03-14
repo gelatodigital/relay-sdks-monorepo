@@ -1,8 +1,8 @@
-import Check from "./Check.interface";
-import Execution from "./Execution.interface";
+import { Check } from "./Check.interface";
+import { Execution } from "./Execution.interface";
 import { TaskState } from "./TaskStatus.enum";
 
-interface TransactionStatus {
+export interface TransactionStatus {
   service: string;
   chain: string;
   taskId: string;
@@ -12,8 +12,6 @@ interface TransactionStatus {
   execution?: Execution;
   lastExecution: Date;
 }
-
-export default TransactionStatus;
 
 /*
 {

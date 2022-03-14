@@ -1,6 +1,6 @@
 import axios from "axios";
 import { RELAY_URL } from "../utils/constants";
-import TransactionStatus from "../types/TransactionStatus.interface";
+import { TransactionStatus } from "../types";
 
 const getTaskStatus = async (
   taskId: string

@@ -1,9 +1,7 @@
-import BigNumber from "./BigNumber.interface";
+import { BigNumber } from "./BigNumber.interface";
 
-interface FeeData {
+export interface FeeData {
   gasPrice: BigNumber;
   maxFeePerGas: BigNumber;
   maxPriorityFeePerGas: BigNumber;
 }
-
-export default FeeData;
