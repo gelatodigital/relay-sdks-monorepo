@@ -10,12 +10,14 @@
     "lerna": "4.0.0"
   },
   "workspaces": [
-    "packages/*"
+    "packages/core-sdk",
+    "packages/relay-sdk"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes && lerna exec -- rimraf yarn.lock dist/ .rts2_cache_{cjs,esm}/",
     "build": "lerna run build",
+    "format": "lerna run format --parallel",
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
     "prepare": "husky install",

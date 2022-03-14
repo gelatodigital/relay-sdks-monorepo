@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SinonStub, stub } from "sinon";
 import { expect } from "./utils/expect";
-import { RelaySDK } from "../src";
+import { Oracle } from "../src";
 
 let axiosGetStub: SinonStub;
 const mockGetActiveOracles = {
@@ -16,11 +16,11 @@ describe("isOracleActive", () => {
   });
 
   it("should work if an oracle is active", async () => {
-    expect(await RelaySDK.isOracleActive(1)).to.be.true;
+    expect(await Oracle.isOracleActive(1)).to.be.true;
   });
 
   it("should work if an oracle is not active", async () => {
-    expect(await RelaySDK.isOracleActive(12345)).to.be.false;
+    expect(await Oracle.isOracleActive(12345)).to.be.false;
   });
 
   afterEach(async () => {

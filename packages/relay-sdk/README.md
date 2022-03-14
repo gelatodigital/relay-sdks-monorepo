@@ -85,6 +85,32 @@ to execute, otherwise the transaction will revert.
   console.log(`RelayerTransactionId = ${relayTx.taskId}`);
 ```
 
+5. Check your transaction status:
+```typescript
+const status = await RelaySDK.getTaskStatus(taskId);
+if (status) {
+  const state = (status as TransactionStatus).taskState;
+  switch (state) {
+    case TaskState.CheckPending:
+      console.log(`> Task pending relayer verification`);
+      break;
+    case TaskState.ExecPending:
+      console.log(`> Task queued for execution`);
+      break;
+    case TaskState.ExecSuccess:
+      console.log(`> Task successfully executed, tx hash: ${status.execution?.transactionHash}`);
+      break;
+    case TaskState.ExecReverted:
+      console.log(`> Task was reverted with message: ${status.lastCheck?.message}`);
+      break;
+    case TaskState.Cancelled:
+      console.log(`> Task was cancelled with message: ${status.lastCheck?.message}`);
+      break;
+    default:
+      console.log(`> Task status: ${state}`);
+  }
+```
+
 ## Examples
 
 Check out our tutorial repository [relay-sdk-hello-world](https://github.com/gelatodigital/relay-sdk-hello-world) for more in-depth examples.

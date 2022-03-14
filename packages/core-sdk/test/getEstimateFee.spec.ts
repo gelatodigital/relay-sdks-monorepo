@@ -1,8 +1,7 @@
 import axios from "axios";
 import { SinonStub, stub } from "sinon";
 import { expect } from "./utils/expect";
-import { RelaySDK } from "../src";
-import constants from "../src/utils/constants";
+import { Oracle, ZERO_ADDRESS } from "../src";
 import { BigNumber } from "ethers";
 
 let axiosGetStub: SinonStub;
@@ -11,7 +10,7 @@ const mockGetEstimatedFee = {
 };
 
 const chainId = 1;
-const paymentToken: string = constants.ZERO_ADDRESS;
+const paymentToken: string = ZERO_ADDRESS;
 const gasLimit = BigNumber.from(25);
 const isHighPriority = true;
 
@@ -24,7 +23,7 @@ describe("getEstimatedFee", () => {
 
   it("should work if a chain is supported by gelato", async () => {
     expect(
-      await RelaySDK.getEstimatedFee(
+      await Oracle.getEstimatedFee(
         chainId,
         paymentToken,
         gasLimit,
