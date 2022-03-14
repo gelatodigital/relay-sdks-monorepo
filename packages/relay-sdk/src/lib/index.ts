@@ -1,7 +1,7 @@
-import RelayTransaction from "../types/RelayTransaction.interface";
+import { RelayTransaction } from "../types/";
 import axios from "axios";
 import { BigNumber } from "ethers";
-import { RELAY_URL } from "@gelatonetwork/core-sdk";
+import { RELAY_URL, Oracle, Status } from "@gelatonetwork/core-sdk";
 
 const sendRelayTransaction = async (
   chainId: number,
@@ -41,4 +41,16 @@ const getGelatoRelayChains = async (): Promise<string[]> => {
   return result;
 };
 
-export { isChainSupported, sendRelayTransaction };
+const isOracleActive = Oracle.isOracleActive;
+const getPaymentTokens = Oracle.getPaymentTokens;
+const getEstimatedFee = Oracle.getEstimatedFee;
+const getTaskStatus = Status.getTaskStatus;
+
+export {
+  isChainSupported,
+  sendRelayTransaction,
+  isOracleActive,
+  getPaymentTokens,
+  getEstimatedFee,
+  getTaskStatus,
+};
