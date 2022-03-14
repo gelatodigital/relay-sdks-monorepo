@@ -43,12 +43,12 @@ import { RelaySDK } from "@gelatonetwork/relay-sdk";
   // Check if the Relay has an oracle on this ChainId
   const isActiveOracle = await RelaySDK.isOracleActive(chainId);
   if (!isActiveOracle) {
-    console.log("Oracle is not active on this Oracle");
+    console.log("Oracle is not active on this network");
     return;
   }
 
-  // Estimate the Token cost now for the given GasLimit and it's the amount of Token
-  // that the function should pay back to the caller
+  // Estimates the transaction cost in the defined token for the inputted gasLimit
+  // The paymentTokenAddress is the address of the token used to pay transaction fees
   const estimatedExecutionFeeInToken: BigNumber = await RelaySDK.getEstimatedFee(
     chainId,
     paymentTokenAddress,
