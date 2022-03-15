@@ -1,20 +1,9 @@
 import { utils } from "ethers";
-import { getAddress } from "ethers/lib/utils";
 
+import { getMetaBoxAddress } from "../constants";
 import { EIP712Domain } from "../types";
 
 const abiCoder = new utils.AbiCoder();
-
-const getMetaBoxAddress = (chainId: number): string => {
-  switch (chainId) {
-    case 5:
-      return getAddress("0x6be602e1E1629789E64bf30d56139396b232597C");
-    case 80001:
-      return getAddress("0xeeea839E2435873adA11d5dD4CAE6032742C0445");
-    default:
-      throw new Error(`getMetaBoxAddress: chainId ${chainId} not supported`);
-  }
-};
 
 const getEIP712Domain = (chainId: number): EIP712Domain => {
   return {

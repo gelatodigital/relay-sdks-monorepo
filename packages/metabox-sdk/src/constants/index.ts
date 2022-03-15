@@ -1,7 +1,5 @@
 import { utils } from "ethers";
 
-const RELAY_URL = "https://relay.gelato.digital";
-
 const REQUEST_TYPE_HASH = utils.solidityKeccak256(
   ["string"],
   [
@@ -9,4 +7,15 @@ const REQUEST_TYPE_HASH = utils.solidityKeccak256(
   ]
 );
 
-export { RELAY_URL, REQUEST_TYPE_HASH };
+const getMetaBoxAddress = (chainId: number): string => {
+  switch (chainId) {
+    case 5:
+      return utils.getAddress("0x6be602e1E1629789E64bf30d56139396b232597C");
+    case 80001:
+      return utils.getAddress("0xeeea839E2435873adA11d5dD4CAE6032742C0445");
+    default:
+      throw new Error(`getMetaBoxAddress: chainId ${chainId} not supported`);
+  }
+};
+
+export { getMetaBoxAddress, REQUEST_TYPE_HASH };
