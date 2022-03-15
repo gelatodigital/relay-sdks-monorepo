@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BytesLike, utils } from "ethers";
 import { _TypedDataEncoder } from "ethers/lib/utils";
-import { RELAY_URL } from "@gelatonetwork/core-sdk";
+import { RELAY_URL, Oracle } from "@gelatonetwork/core-sdk";
 
 import { REQUEST_TYPE_HASH } from "../constants";
 import metaBoxABI from "../constants/abis/GelatoMetaBox.json";
@@ -50,17 +50,7 @@ const isChainSupported = async (chainId: number): Promise<boolean> => {
 };
 
 const getFeeTokens = async (chainId: number): Promise<string[]> => {
-  try {
-    const response = await axios.get(
-      `${RELAY_URL}/oracles/${chainId}/paymentTokens/`
-    );
-
-    return response.data.paymentTokens;
-  } catch (error) {
-    const errorMsg = (error as Error).message ?? String(error);
-
-    throw new Error(`getFeeTokens: Failed with error: ${errorMsg}`);
-  }
+  return await Oracle.getPaymentTokens(chainId);
 };
 
 const getMetaBoxAddressAndABI = (
