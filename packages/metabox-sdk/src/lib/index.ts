@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BigNumber, BytesLike } from "ethers";
+import { BigNumber, BytesLike, utils } from "ethers";
 import { _TypedDataEncoder } from "ethers/lib/utils";
 
-import { META_BOX_URL } from "../constants";
+import { RELAY_URL, META_BOX_URL, REQUEST_TYPE_HASH } from "../constants";
 import { Request, EIP712TypeData } from "../types";
-import { getEIP712Domain } from "../utils";
+import { getEIP712Domain, getEIP712DomainSeparator } from "../utils";
 
 const sendMetaBoxTransaction = async (
   request: Request,
@@ -58,7 +58,7 @@ const getEstimatedFee = async (
 ): Promise<BigNumber> => {
   try {
     const response = await axios.get(
-      `${META_BOX_URL}/oracles/${chainId}/estimate`,
+      `${RELAY_URL}/oracles/${chainId}/estimate`,
       {
         params: {
           feeToken,
@@ -88,7 +88,7 @@ const isFeeOracleActive = async (chainId: number): Promise<boolean> => {
 
 const getGelatoFeeOracles = async (): Promise<string[]> => {
   try {
-    const response = await axios.get(`${META_BOX_URL}/oracles/`);
+    const response = await axios.get(`${RELAY_URL}/oracles/`);
 
     return response.data.oracles;
   } catch (error) {
@@ -105,7 +105,7 @@ const getGelatoFeeOracles = async (): Promise<string[]> => {
 const getFeeTokens = async (chainId: number): Promise<string[]> => {
   try {
     const response = await axios.get(
-      `${META_BOX_URL}/oracles/${chainId}/paymentTokens/`
+      `${RELAY_URL}/oracles/${chainId}/paymentTokens/`
     );
 
     return response.data.paymentTokens;
@@ -120,13 +120,76 @@ const getFeeTokens = async (chainId: number): Promise<string[]> => {
   }
 };
 
-const getDigestToSign = (request: Request): string => {
-  const domain = getEIP712Domain(request.chainId);
+const metaBoxRequest = (
+  chainId: number,
+  target: string,
+  data: BytesLike,
+  feeToken: string,
+  user: string,
+  nonce: number,
+  isEIP2771: boolean,
+  sponsor?: string,
+  deadline?: number
+): Request => {
+  return {
+    chainId,
+    target,
+    data,
+    feeToken,
+    user,
+    sponsor: sponsor ?? user,
+    nonce,
+    deadline: deadline ?? 0,
+    isEIP2771,
+  };
+};
 
-  return _TypedDataEncoder.hash(domain, EIP712TypeData, request);
+const getDigestToSign = (request: Request): string => {
+  const domainSeparator = getEIP712DomainSeparator(request.chainId);
+
+  const abiCoder = new utils.AbiCoder();
+
+  const hash = utils.solidityKeccak256(
+    ["bytes"],
+    [
+      abiCoder.encode(
+        [
+          "bytes32",
+          "uint256",
+          "address",
+          "bytes32",
+          "address",
+          "address",
+          "address",
+          "uint256",
+          "uint256",
+          "bool",
+        ],
+        [
+          REQUEST_TYPE_HASH,
+          request.chainId,
+          request.target,
+          utils.solidityKeccak256(["bytes"], [request.data]),
+          request.feeToken,
+          request.user,
+          request.sponsor,
+          request.nonce,
+          request.deadline,
+          request.isEIP2771,
+        ]
+      ),
+    ]
+  );
+
+  const digest = utils.solidityKeccak256(
+    ["bytes"],
+    [utils.hexConcat(["0x1901", domainSeparator, hash])]
+  );
+
+  return digest;
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getPayloadToSign = (request: Request): any => {
+const getWalletPayloadToSign = (request: Request): any => {
   const domain = getEIP712Domain(request.chainId);
 
   return _TypedDataEncoder.getPayload(domain, EIP712TypeData, request);
@@ -138,6 +201,7 @@ export {
   isFeeOracleActive,
   getEstimatedFee,
   getFeeTokens,
+  metaBoxRequest,
   getDigestToSign,
-  getPayloadToSign,
+  getWalletPayloadToSign,
 };
