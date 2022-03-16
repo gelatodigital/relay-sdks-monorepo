@@ -11,6 +11,7 @@
   },
   "workspaces": [
     "packages/core-sdk",
+    "packages/metabox-sdk",
     "packages/relay-sdk"
   ],
   "scripts": {
