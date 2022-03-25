@@ -10,11 +10,11 @@ const REQUEST_TYPE_HASH = utils.solidityKeccak256(
 const getMetaBoxAddress = (chainId: number): string => {
   switch (chainId) {
     case 5:
-      return utils.getAddress("0x6be602e1E1629789E64bf30d56139396b232597C");
+      return utils.getAddress("0xf8Da711e2644415c41E3BD1329477019FC50C490");
     case 137:
-      return utils.getAddress("0xbeC333EDE1A0687D2b9624F8C073a54c93ba9777");
+      return utils.getAddress("0x0343Af039E2E1c25A9691eEb654Ce0de1910C3e2");
     case 80001:
-      return utils.getAddress("0xeeea839E2435873adA11d5dD4CAE6032742C0445");
+      return utils.getAddress("0xDf592cB2d32445F8e831d211AB20D3233cA41bD8");
     default:
       throw new Error(`getMetaBoxAddress: chainId ${chainId} not supported`);
   }
