@@ -13,6 +13,7 @@ const chainId = 1;
 const paymentToken: string = ZERO_ADDRESS;
 const gasLimit = BigNumber.from(25);
 const isHighPriority = true;
+const gasLimitL1 = BigNumber.from(25);
 
 describe("getEstimatedFee", () => {
   beforeEach(async () => {
@@ -28,6 +29,18 @@ describe("getEstimatedFee", () => {
         paymentToken,
         gasLimit,
         isHighPriority
+      )
+    ).to.deep.equal(BigNumber.from("0xdeadbeef"));
+  });
+
+  it("should work if a chain is supported by gelato using GasLimitL1 as parameter", async () => {
+    expect(
+      await Oracle.getEstimatedFee(
+        chainId,
+        paymentToken,
+        gasLimit,
+        isHighPriority,
+        gasLimitL1
       )
     ).to.deep.equal(BigNumber.from("0xdeadbeef"));
   });
