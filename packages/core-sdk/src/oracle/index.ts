@@ -6,13 +6,15 @@ const getEstimatedFee = async (
   chainId: number,
   paymentToken: string,
   gasLimit: BigNumber,
-  isHighPriority: boolean
+  isHighPriority: boolean,
+  gasLimitL1 = BigNumber.from(0)
 ): Promise<BigNumber> => {
   const result = await _getEstimatedFee(
     chainId,
     paymentToken,
     gasLimit.toString(),
-    isHighPriority
+    isHighPriority,
+    gasLimitL1.toString()
   );
   return result;
 };
@@ -21,9 +23,10 @@ const _getEstimatedFee = async (
   chainId: number,
   paymentToken: string,
   gasLimit: string,
-  isHighPriority: boolean
+  isHighPriority: boolean,
+  gasLimitL1: string
 ): Promise<BigNumber> => {
-  const params = { paymentToken, gasLimit, isHighPriority };
+  const params = { paymentToken, gasLimit, isHighPriority, gasLimitL1 };
   let result: BigNumber;
   try {
     const res = await axios.get(`${RELAY_URL}/oracles/${chainId}/estimate`, {

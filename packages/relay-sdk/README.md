@@ -62,6 +62,19 @@ const estimatedExecutionFeeInToken: BigNumber = await RelaySDK.getEstimatedFee(
 );
 ```
 
+If you are estimating the transaction cost on Optimism, you have to use the
+function getEstimatedFee with the GasLimit on L1 as follows:
+
+```typescript
+  const estimatedExecutionFeeInToken: BigNumber = await RelaySDK.getEstimatedFee(
+    chainId,
+    paymentTokenAddress,
+    gasLimit,
+    isHighPriority // If we want to get a high priority fee
+    gasLimitL1 // Estimated Gas Limit on L1
+  );
+```
+
 3. Get supported payment tokens by chain id
 
 ```typescript
